@@ -1,0 +1,31 @@
+# Data (download manually, never commit, some files are large)
+data/*
+!data/README.md
+
+# Generated charts and screenshots
+figures/*
+!figures/.gitkeep
+
+# Spark output and checkpoints
+spark-warehouse/
+*.crc
+_SUCCESS
+metastore_db/
+derby.log
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Secrets and local config
+.env
+*.local
+
+# OS and editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
