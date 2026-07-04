@@ -62,7 +62,9 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Download the datasets into `data/` as described in `docs/02_datasets.md` (the `data/` folder is gitignored, so nothing large is committed). Then follow `docs/03_spark_pipeline.md` to run the pipeline.
+PySpark needs a Java runtime (Java 11 or 17). Install it and set `JAVA_HOME` if Spark fails to start on first run. On Windows you may also need `winutils.exe` on the PATH. This is the most common first-run failure, so sort it before the pipeline steps.
+
+Copy `.env.example` to `.env` and fill in the MongoDB URI. Then download the datasets into `data/` as described in `docs/02_datasets.md` (the `data/` folder is gitignored, so nothing large is committed). Then follow `docs/03_spark_pipeline.md` to run the pipeline.
 
 ## Working rule for the whole team
 
