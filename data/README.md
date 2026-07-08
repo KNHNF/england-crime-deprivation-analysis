@@ -14,8 +14,8 @@ data/
 
 ## Downloads
 
-- police.uk archive: https://data.police.uk/data/ (select the full date range, download, unzip into `data/police/`).
-- IMD 2019 File 7: https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019
+- police.uk + Include crime data + Include outcomes data (from june 2023 till; May 2026) archive: https://data.police.uk/data/ (select the full date range, download, unzip into `data/police/`).
+- IMD 2025 File 7: https://www.gov.uk/government/statistics/english-indices-of-deprivation-2025
 - LSOA population (optional, only if reporting a per-1,000 rate): ONS mid-year population estimates at LSOA level.
 
 Record the exact archive date range, row counts, and total size in `docs/02_datasets.md` once downloaded.
