@@ -8,14 +8,14 @@
    - Download the full archive as monthly CSVs across multiple years. Each row is one recorded crime with a category, a month, an approximate location, and an LSOA code.
    - Scale: 19M+ rows across the archive. This is the dataset that justifies Spark.
 
-2. English Index of Multiple Deprivation (IMD) 2019
-   - URL: https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019
-   - File 7 (the LSOA-level scores) is the one to use. IMD combines income, employment, education, health, crime, housing, and living environment into one score and rank per LSOA. Higher score means more deprived.
-   - Scale: 32,844 LSOAs.
+2. English Indices of Deprivation 2025
+   - Local file: `data/File_7_IoD2025_All_Ranks_Scores_Deciles_Population_Denominators.csv`.
+   - File 7 is the LSOA-level scores file. It includes IoD scores, ranks, deciles, local authority fields, and mid-2022 population denominators.
+   - Scale: about 33k LSOAs.
 
-3. Optional but recommended: LSOA population estimates
-   - ONS mid-year population estimates at LSOA level.
-   - Needed only if we report a crime rate per 1,000 people rather than raw crime counts. Without it we can still classify hotspots on counts, but a rate is fairer across areas of different size. Decide this in `docs/05`.
+3. Population denominators
+   - Already included in the IoD 2025 File 7 CSV as `Total population: mid 2022`.
+   - The Spark output uses this to calculate `crime_rate_per_1000`.
 
 ## The join
 
@@ -30,4 +30,10 @@ Crime volume at record level gives the scale that justifies Spark. IMD gives the
 - Exact archive date range downloaded, row counts per year, total size on disk.
 - Missing value rates per column, and known quirks: blank LSOA codes, the deliberate location fuzzing police.uk applies, category changes between years.
 - Any forces or months excluded and the reason.
-- IMD version note: IMD is 2019, crime is more recent, so there is a time gap. Record it here and carry it into `docs/08`.
+- IoD version note: IoD 2025 is now used, so the deprivation snapshot is closer to the June 2023 to May 2026 crime window than the earlier 2019 plan.
+
+## Current Local Files
+
+- Police archive extracted folder: `data/Crime Data LSOA (june 2023 - may 2026)`.
+- Street CSV count: 1,563 files.
+- IoD file: `data/File_7_IoD2025_All_Ranks_Scores_Deciles_Population_Denominators.csv`.

@@ -2,6 +2,15 @@
 
 Owner: Karan.
 
+Status as of 2026-07-10 (later): real full-scale run complete, 32,870 LSOAs, hotspot threshold 335.1 crimes per 1,000 residents (top quartile of the full 3-year archive).
+
+| Model | Accuracy | Precision (hotspot) | Recall (hotspot) | F1 (hotspot) |
+|---|---|---|---|---|
+| Logistic regression | 0.804 | 0.578 | 0.798 | 0.670 |
+| Random forest | 0.820 | 0.700 | 0.487 | 0.575 |
+
+Both models clearly beat guessing (hotspots are ~25% of LSOAs by construction, so a naive "always not hotspot" guess would hit ~75% accuracy with 0 recall). Logistic regression catches more true hotspots (recall 0.80 vs 0.49) but with more false alarms, random forest is more precise when it does call something a hotspot but misses over half of the real ones. For the slide: lead with F1, and be honest that recall vs precision is a real trade-off here, not a case where one model strictly beats the other. Confusion matrices saved to `figures/logistic_regression_confusion_matrix.png` and `figures/random_forest_confusion_matrix.png`.
+
 ## Committed task: hotspot classification
 
 Predict whether an LSOA is a crime hotspot (high crime) from deprivation and area features.
@@ -34,6 +43,29 @@ Cluster LSOAs by their crime and deprivation profile with k-means, then describe
 ## Recommendation
 
 Commit to hotspot classification as the graded result. Run the regression as a short secondary to add depth. Use clustering only if there is time, as a descriptive map layer. Log the final decision and the reasoning here once made.
+
+## Current implementation
+
+Code now exists in `src/train_model.py`.
+
+Run after the Spark output exists:
+
+```bash
+python src/train_model.py
+```
+
+The script defines a hotspot as the top quartile of LSOAs by `crime_rate_per_1000`. It trains two models:
+
+- logistic regression, used as the readable baseline
+- random forest, used as the stronger non-linear model
+
+Inputs are IoD 2025 overall score, decile, domain scores, domain deciles, and population. Outputs are saved in `figures/`:
+
+- `hotspot_model_metrics.json`
+- `logistic_regression_confusion_matrix.png`
+- `random_forest_confusion_matrix.png`
+
+Record the hotspot threshold and model metrics here after the first successful run. The presentation should report precision, recall, and F1 for the hotspot class, not accuracy alone.
 
 ## To record here as work happens
 

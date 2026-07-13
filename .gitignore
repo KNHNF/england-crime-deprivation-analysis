@@ -23,9 +23,23 @@ __pycache__/
 # Secrets and local config
 .env
 *.local
+HANDOFF.md
+GOTCHAS.md
+
+# Internal working notes, not for the public repo
+docs/11_gamma_prompt.md
+docs/12_gamma_prep_checklist.md
+fix added.md
+docs/Powerpoint/
 
 # OS and editor
 .DS_Store
 Thumbs.db
 .idea/
 .vscode/
+
+# Ad-hoc debug/scratch scripts, not part of the pipeline
+test.py
+test_env.py
+print_processed_dir.py
+test_write_perm.txt
