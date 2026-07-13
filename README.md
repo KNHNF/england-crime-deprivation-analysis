@@ -2,7 +2,7 @@
 
 UWE Bristol, Big Data module, 25% group video assessment.
 
-GitHub: `england-crime-deprivation-analysis` (renamed from the working repo name `bigdata-crime-deprivation-spark`).
+GitHub: [KNHNF/england-crime-depriviation-analysis](https://github.com/KNHNF/england-crime-depriviation-analysis) (renamed from the working repo name `bigdata-crime-deprivation-spark`).
 
 ## What this is
 
