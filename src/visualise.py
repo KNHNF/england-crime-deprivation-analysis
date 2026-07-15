@@ -234,6 +234,45 @@ def save_lad_ranking(parquet_dir: Path, figures_dir: Path) -> Path:
     return output
 
 
+def save_manchester_gap_evidence(parquet_dir: Path, figures_dir: Path) -> Path:
+    # Evidence chart for the limitations/findings slide, not the main ranking.
+    # Unlike save_lad_ranking() (which correctly excludes Greater Manchester from
+    # the "safest places" claim), this chart deliberately INCLUDES Manchester's
+    # boroughs so they can be seen sitting anomalously at the bottom, next to
+    # real low-crime areas, as visual proof of the data gap. Taller figure so
+    # every borough label is readable, not cramped.
+    GM_BOROUGHS = {
+        "Oldham", "Bury", "Tameside", "Trafford", "Salford",
+        "Rochdale", "Bolton", "Wigan", "Manchester", "Stockport",
+    }
+    data = pd.read_parquet(
+        parquet_dir, columns=["lad_name", "total_crimes", "population"]
+    ).dropna(subset=["lad_name"])
+
+    lad = data.groupby("lad_name").agg(
+        total_crimes=("total_crimes", "sum"),
+        population=("population", "sum"),
+        n_lsoas=("lad_name", "count"),
+    )
+    lad = lad[lad["n_lsoas"] >= 10]
+    lad["crime_rate_per_1000"] = lad["total_crimes"] / lad["population"] * 1000
+
+    # Bottom 25 by crime rate, WITH Manchester included, so the gap is visible
+    # next to genuinely low-crime local authorities for comparison.
+    bottom25 = lad.nsmallest(25, "crime_rate_per_1000")
+    colors = ["#B5451B" if name in GM_BOROUGHS else "#4C78A8" for name in bottom25.index]
+
+    output = figures_dir / "manchester_gap_evidence.png"
+    plt.figure(figsize=(9, 12))  # taller so all 25 labels are readable
+    plt.barh(bottom25.index[::-1], bottom25["crime_rate_per_1000"][::-1], color=colors[::-1])
+    plt.title("Lowest-ranked local authorities including Greater Manchester (red)\nGM boroughs have no data in this archive, not genuinely low crime")
+    plt.xlabel("Crimes per 1,000 residents (3-year total)")
+    plt.tight_layout()
+    plt.savefig(output, dpi=200)
+    plt.close()
+    return output
+
+
 def save_crime_category_breakdown(parquet_dir: Path, figures_dir: Path) -> Path:
     # National crime category breakdown, summed across all LSOAs. crimes_by_category
     # is stored as a Spark map, which pandas/pyarrow reads back as a list of
@@ -278,6 +317,7 @@ def build_visuals(parquet_dir: Path, figures_dir: Path) -> list[Path]:
         save_deprivation_heatmap_interactive(data, figures_dir),
         save_crime_category_breakdown(parquet_dir, figures_dir),
         save_lad_ranking(parquet_dir, figures_dir),
+        save_manchester_gap_evidence(parquet_dir, figures_dir),
     ]
     return outputs
 
