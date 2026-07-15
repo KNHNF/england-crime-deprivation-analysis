@@ -3,7 +3,8 @@ data/*
 !data/README.md
 
 # Generated charts and screenshots
-figures/*
+# Pushed on purpose so the team can pull final figures for the deck. Re-ignore if this gets too large.
+# figures/*
 !figures/.gitkeep
 
 # Spark output and checkpoints

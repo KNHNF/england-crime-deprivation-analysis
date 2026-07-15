@@ -1,0 +1,73 @@
+{
+  "hotspot_definition": "Top quartile of LSOAs by crimes per 1,000 residents",
+  "hotspot_threshold_crimes_per_1000": 335.11491333702395,
+  "rows_used": 32870,
+  "features": [
+    "imd_score",
+    "imd_decile",
+    "income_score",
+    "income_decile",
+    "employment_score",
+    "employment_decile",
+    "education_score",
+    "education_decile",
+    "health_score",
+    "health_decile",
+    "housing_score",
+    "housing_decile",
+    "living_environment_score",
+    "living_environment_decile",
+    "population"
+  ],
+  "models": {
+    "logistic_regression": {
+      "accuracy": 0.8036018495984425,
+      "precision_hotspot": 0.5777229467747621,
+      "recall_hotspot": 0.7975669099756691,
+      "f1_hotspot": 0.6700735895339329,
+      "confusion_matrix": [
+        [
+          4965,
+          1198
+        ],
+        [
+          416,
+          1639
+        ]
+      ]
+    },
+    "random_forest": {
+      "accuracy": 0.8196641518617669,
+      "precision_hotspot": 0.7004898530440867,
+      "recall_hotspot": 0.4871046228710462,
+      "f1_hotspot": 0.5746268656716418,
+      "confusion_matrix": [
+        [
+          5735,
+          428
+        ],
+        [
+          1054,
+          1001
+        ]
+      ]
+    }
+  },
+  "feature_importance": {
+    "imd_score": 0.15062900330635706,
+    "income_score": 0.10258802133259096,
+    "health_score": 0.08990017515235509,
+    "employment_score": 0.08573103235222686,
+    "living_environment_score": 0.08283008886928604,
+    "housing_score": 0.07975117600727541,
+    "education_score": 0.07385073170528489,
+    "population": 0.070057756332489,
+    "imd_decile": 0.06309591618191579,
+    "income_decile": 0.046855564853928056,
+    "housing_decile": 0.035879545883776315,
+    "living_environment_decile": 0.0351615330354094,
+    "health_decile": 0.030056704051871705,
+    "employment_decile": 0.029824965905197467,
+    "education_decile": 0.023787785030036007
+  }
+}
