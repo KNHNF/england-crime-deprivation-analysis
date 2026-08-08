@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from folium.plugins import HeatMap
+from matplotlib.colors import LogNorm
 
 from config import load_settings, repo_path
 
@@ -40,32 +41,77 @@ def clean_for_plots(data: pd.DataFrame) -> pd.DataFrame:
     return plot_data.dropna(subset=["crime_rate_per_1000", "imd_score", "imd_decile"])
 
 
+# Approximate bounding box for Greater Manchester's 10 boroughs (Wigan west
+# to Oldham/Tameside east, Bolton/Bury/Rochdale north to Stockport/Trafford
+# south), used to mark the data gap directly on the LSOA maps so it reads on
+# the slide without a separate spoken caveat. GM has no street-level file in
+# the archive (see docs/08_limitations.md), so it is dark/blank on the crime
+# map and unremarkable on the deprivation map: the annotation is what makes
+# that contrast legible at a glance.
+GM_BOUNDS = {"lon_min": -2.75, "lon_max": -1.90, "lat_min": 53.33, "lat_max": 53.68}
+
+
+def _annotate_greater_manchester(ax, label: str) -> None:
+    from matplotlib.patches import Rectangle
+
+    box = Rectangle(
+        (GM_BOUNDS["lon_min"], GM_BOUNDS["lat_min"]),
+        GM_BOUNDS["lon_max"] - GM_BOUNDS["lon_min"],
+        GM_BOUNDS["lat_max"] - GM_BOUNDS["lat_min"],
+        fill=False,
+        edgecolor="#D97757",
+        linewidth=2,
+        linestyle="--",
+        zorder=5,
+    )
+    ax.add_patch(box)
+    ax.annotate(
+        label,
+        xy=(GM_BOUNDS["lon_min"], GM_BOUNDS["lat_max"]),
+        xytext=(-6.4, 55.3),
+        fontsize=10,
+        fontweight="bold",
+        color="#D97757",
+        ha="left",
+        arrowprops={"arrowstyle": "->", "color": "#D97757", "linewidth": 1.5},
+        zorder=6,
+    )
+
+
 def save_crime_rate_map(data: pd.DataFrame, figures_dir: Path) -> Path:
     output = figures_dir / "crime_rate_lsoa_map.png"
-    plt.figure(figsize=(8, 10))
-    scatter = plt.scatter(
+    fig, ax = plt.subplots(figsize=(8, 10))
+    # Crime rate is heavily right-skewed (median 204, max 19,159 per 1,000), so a
+    # linear colour scale compresses almost every LSOA into the bottom sliver of
+    # the range and the whole map reads as black regardless of true value. A log
+    # scale spreads the typical range out so genuine variation is visible. Floor
+    # at 0.1 rather than 0 since LogNorm cannot colour a true zero.
+    rate = data["crime_rate_per_1000"].clip(lower=0.1)
+    scatter = ax.scatter(
         data["avg_longitude"],
         data["avg_latitude"],
-        c=data["crime_rate_per_1000"],
+        c=rate,
         s=8,
         cmap="magma",
+        norm=LogNorm(vmin=rate.min(), vmax=rate.max(), clip=True),
         alpha=0.65,
         linewidths=0,
     )
-    plt.colorbar(scatter, label="Crimes per 1,000 residents")
-    plt.title("Crime rate by LSOA, June 2023 to May 2026")
-    plt.xlabel("Longitude")
-    plt.ylabel("Latitude")
-    plt.tight_layout()
-    plt.savefig(output, dpi=200)
-    plt.close()
+    fig.colorbar(scatter, label="Crimes per 1,000 residents (log scale)")
+    _annotate_greater_manchester(ax, "Greater Manchester\n(no crime data in archive)")
+    ax.set_title("Crime rate by LSOA, June 2023 to May 2026")
+    ax.set_xlabel("Longitude")
+    ax.set_ylabel("Latitude")
+    fig.tight_layout()
+    fig.savefig(output, dpi=200)
+    plt.close(fig)
     return output
 
 
 def save_deprivation_map(data: pd.DataFrame, figures_dir: Path) -> Path:
     output = figures_dir / "iod2025_deprivation_lsoa_map.png"
-    plt.figure(figsize=(8, 10))
-    scatter = plt.scatter(
+    fig, ax = plt.subplots(figsize=(8, 10))
+    scatter = ax.scatter(
         data["avg_longitude"],
         data["avg_latitude"],
         c=data["imd_decile"],
@@ -74,13 +120,14 @@ def save_deprivation_map(data: pd.DataFrame, figures_dir: Path) -> Path:
         alpha=0.65,
         linewidths=0,
     )
-    plt.colorbar(scatter, label="IoD 2025 decile, 1 is most deprived")
-    plt.title("IoD 2025 deprivation by LSOA")
-    plt.xlabel("Longitude")
-    plt.ylabel("Latitude")
-    plt.tight_layout()
-    plt.savefig(output, dpi=200)
-    plt.close()
+    fig.colorbar(scatter, label="IoD 2025 decile, 1 is most deprived")
+    _annotate_greater_manchester(ax, "Greater Manchester\n(deprivation data present, unremarkable)")
+    ax.set_title("IoD 2025 deprivation by LSOA")
+    ax.set_xlabel("Longitude")
+    ax.set_ylabel("Latitude")
+    fig.tight_layout()
+    fig.savefig(output, dpi=200)
+    plt.close(fig)
     return output
 
 
