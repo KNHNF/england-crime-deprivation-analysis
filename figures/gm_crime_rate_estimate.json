@@ -1,0 +1,470 @@
+{
+  "method": "RandomForestRegressor trained on the 43 non-Greater-Manchester local authorities' LSOA-level deprivation features (same feature set as the hotspot classifier) to predict crime_rate_per_1000, then applied to Greater Manchester's own real, present deprivation data.",
+  "holdout_r2": 0.22650354693111097,
+  "holdout_mae_crimes_per_1000": 127.11361000445719,
+  "rows_trained_on": 32040,
+  "gm_lsoa_rows": 830,
+  "national_actual_mean_crime_rate_per_1000": 294.35669375855565,
+  "gm_actual_mean_crime_rate_per_1000": 1.8266476855812506,
+  "gm_predicted_mean_crime_rate_per_1000": 503.1368114074665,
+  "gm_predicted_vs_actual_multiple": 275.44272241385465,
+  "borough_summary": [
+    {
+      "lad_name": "Bolton",
+      "population": 168411.0,
+      "actual_crime_rate_per_1000": 1.6863506540546638,
+      "predicted_crime_rate_per_1000": 398.02984965986724,
+      "gap_multiple": 236.03029933474616
+    },
+    {
+      "lad_name": "Bury",
+      "population": 102674.0,
+      "actual_crime_rate_per_1000": 1.0616124822252957,
+      "predicted_crime_rate_per_1000": 400.2472990253064,
+      "gap_multiple": 377.0182677075624
+    },
+    {
+      "lad_name": "Manchester",
+      "population": 296149.0,
+      "actual_crime_rate_per_1000": 2.417701900057066,
+      "predicted_crime_rate_per_1000": 809.7663333270921,
+      "gap_multiple": 334.9322483917388
+    },
+    {
+      "lad_name": "Oldham",
+      "population": 111550.0,
+      "actual_crime_rate_per_1000": 0.8785298072613178,
+      "predicted_crime_rate_per_1000": 497.8738255763847,
+      "gap_multiple": 566.7125024800583
+    },
+    {
+      "lad_name": "Rochdale",
+      "population": 133383.0,
+      "actual_crime_rate_per_1000": 1.6493856038625612,
+      "predicted_crime_rate_per_1000": 453.25377423880377,
+      "gap_multiple": 274.80158258770166
+    },
+    {
+      "lad_name": "Salford",
+      "population": 151866.0,
+      "actual_crime_rate_per_1000": 1.4815692781794476,
+      "predicted_crime_rate_per_1000": 586.5919238646361,
+      "gap_multiple": 395.9260849316748
+    },
+    {
+      "lad_name": "Stockport",
+      "population": 120610.0,
+      "actual_crime_rate_per_1000": 2.8853328911367218,
+      "predicted_crime_rate_per_1000": 337.5111381120606,
+      "gap_multiple": 116.97476542441274
+    },
+    {
+      "lad_name": "Tameside",
+      "population": 129336.0,
+      "actual_crime_rate_per_1000": 1.430382878703532,
+      "predicted_crime_rate_per_1000": 430.93059692282674,
+      "gap_multiple": 301.26940369519303
+    },
+    {
+      "lad_name": "Trafford",
+      "population": 72626.0,
+      "actual_crime_rate_per_1000": 1.4733015724396221,
+      "predicted_crime_rate_per_1000": 273.8447287504781,
+      "gap_multiple": 185.87146981525444
+    },
+    {
+      "lad_name": "Wigan",
+      "population": 192060.0,
+      "actual_crime_rate_per_1000": 2.1295428511923356,
+      "predicted_crime_rate_per_1000": 388.54451398853894,
+      "gap_multiple": 182.45442385486257
+    }
+  ],
+  "chart": "E:\\Coding\\public-projects\\Uni Projects\\Big Data\\Big Data course\\england-crime-depriviation-analysis\\figures\\gm_predicted_vs_actual_crime_rate.png",
+  "nearest_neighbour_comparison": {
+    "k": 5,
+    "boroughs": [
+      {
+        "lad_name": "Bolton",
+        "actual_crime_rate_per_1000": 1.6863506540546638,
+        "imd_score": 33.95382845538593,
+        "neighbours": [
+          {
+            "lad_name": "Wolverhampton",
+            "distance": 1.3278615316910247,
+            "imd_score": 32.55174248939856,
+            "actual_crime_rate_per_1000": 343.16953353640326
+          },
+          {
+            "lad_name": "Blackburn with Darwen",
+            "distance": 1.499623036498808,
+            "imd_score": 36.898780584380994,
+            "actual_crime_rate_per_1000": 364.33645867426503
+          },
+          {
+            "lad_name": "Nottingham",
+            "distance": 1.5155080724927001,
+            "imd_score": 33.74687506413702,
+            "actual_crime_rate_per_1000": 466.66401974198595
+          },
+          {
+            "lad_name": "Kingston upon Hull, City of",
+            "distance": 1.8379733000017386,
+            "imd_score": 37.206066343602174,
+            "actual_crime_rate_per_1000": 425.34716406689074
+          },
+          {
+            "lad_name": "Thanet",
+            "distance": 1.9399068071059276,
+            "imd_score": 32.01751528613976,
+            "actual_crime_rate_per_1000": 365.2111484685428
+          }
+        ],
+        "neighbour_mean_crime_rate_per_1000": 392.9456648976176
+      },
+      {
+        "lad_name": "Bury",
+        "actual_crime_rate_per_1000": 1.0616124822252957,
+        "imd_score": 28.896801751173616,
+        "neighbours": [
+          {
+            "lad_name": "Preston",
+            "distance": 1.1951089027642567,
+            "imd_score": 28.761836121920865,
+            "actual_crime_rate_per_1000": 440.5902455405646
+          },
+          {
+            "lad_name": "Gateshead",
+            "distance": 1.700412602342566,
+            "imd_score": 28.127952754115263,
+            "actual_crime_rate_per_1000": 338.69908347732945
+          },
+          {
+            "lad_name": "Derby",
+            "distance": 1.871200433961174,
+            "imd_score": 28.15477176617859,
+            "actual_crime_rate_per_1000": 414.96472194825884
+          },
+          {
+            "lad_name": "North East Lincolnshire",
+            "distance": 1.957900636001399,
+            "imd_score": 30.213368734349753,
+            "actual_crime_rate_per_1000": 407.9558781577863
+          },
+          {
+            "lad_name": "St. Helens",
+            "distance": 1.9604818295231312,
+            "imd_score": 28.95342237235286,
+            "actual_crime_rate_per_1000": 298.65532025464466
+          }
+        ],
+        "neighbour_mean_crime_rate_per_1000": 380.1730498757168
+      },
+      {
+        "lad_name": "Manchester",
+        "actual_crime_rate_per_1000": 2.417701900057066,
+        "imd_score": 40.05126409678912,
+        "neighbours": [
+          {
+            "lad_name": "Blackburn with Darwen",
+            "distance": 2.4775214085496264,
+            "imd_score": 36.898780584380994,
+            "actual_crime_rate_per_1000": 364.33645867426503
+          },
+          {
+            "lad_name": "Barking and Dagenham",
+            "distance": 2.67546264361803,
+            "imd_score": 30.26553496425634,
+            "actual_crime_rate_per_1000": 333.8135512340994
+          },
+          {
+            "lad_name": "Leicester",
+            "distance": 2.768196578231748,
+            "imd_score": 34.44856084511201,
+            "actual_crime_rate_per_1000": 398.02144995234835
+          },
+          {
+            "lad_name": "Nottingham",
+            "distance": 2.897177757311276,
+            "imd_score": 33.74687506413702,
+            "actual_crime_rate_per_1000": 466.66401974198595
+          },
+          {
+            "lad_name": "Wolverhampton",
+            "distance": 3.052427706830472,
+            "imd_score": 32.55174248939856,
+            "actual_crime_rate_per_1000": 343.16953353640326
+          }
+        ],
+        "neighbour_mean_crime_rate_per_1000": 381.20100262782046
+      },
+      {
+        "lad_name": "Oldham",
+        "actual_crime_rate_per_1000": 0.8785298072613178,
+        "imd_score": 42.67305559838638,
+        "neighbours": [
+          {
+            "lad_name": "Blackburn with Darwen",
+            "distance": 1.7813569228392758,
+            "imd_score": 36.898780584380994,
+            "actual_crime_rate_per_1000": 364.33645867426503
+          },
+          {
+            "lad_name": "Burnley",
+            "distance": 1.9750858041802306,
+            "imd_score": 38.68093334378758,
+            "actual_crime_rate_per_1000": 438.2206889341906
+          },
+          {
+            "lad_name": "Great Yarmouth",
+            "distance": 2.7213012088883057,
+            "imd_score": 34.22825232886592,
+            "actual_crime_rate_per_1000": 334.75569445279166
+          },
+          {
+            "lad_name": "Kingston upon Hull, City of",
+            "distance": 2.856283134726101,
+            "imd_score": 37.206066343602174,
+            "actual_crime_rate_per_1000": 425.34716406689074
+          },
+          {
+            "lad_name": "Sandwell",
+            "distance": 2.8831360836431545,
+            "imd_score": 33.772016199337166,
+            "actual_crime_rate_per_1000": 328.7316226616596
+          }
+        ],
+        "neighbour_mean_crime_rate_per_1000": 378.2783257579595
+      },
+      {
+        "lad_name": "Rochdale",
+        "actual_crime_rate_per_1000": 1.6493856038625612,
+        "imd_score": 38.88656463717265,
+        "neighbours": [
+          {
+            "lad_name": "Blackburn with Darwen",
+            "distance": 1.4244895611851776,
+            "imd_score": 36.898780584380994,
+            "actual_crime_rate_per_1000": 364.33645867426503
+          },
+          {
+            "lad_name": "Middlesbrough",
+            "distance": 1.6482229680810947,
+            "imd_score": 40.03676662202271,
+            "actual_crime_rate_per_1000": 588.4926270165497
+          },
+          {
+            "lad_name": "Kingston upon Hull, City of",
+            "distance": 1.7247286769183363,
+            "imd_score": 37.206066343602174,
+            "actual_crime_rate_per_1000": 425.34716406689074
+          },
+          {
+            "lad_name": "Sandwell",
+            "distance": 2.007149181629301,
+            "imd_score": 33.772016199337166,
+            "actual_crime_rate_per_1000": 328.7316226616596
+          },
+          {
+            "lad_name": "Wolverhampton",
+            "distance": 2.0521642196942897,
+            "imd_score": 32.55174248939856,
+            "actual_crime_rate_per_1000": 343.16953353640326
+          }
+        ],
+        "neighbour_mean_crime_rate_per_1000": 410.0154811911537
+      },
+      {
+        "lad_name": "Salford",
+        "actual_crime_rate_per_1000": 1.4815692781794476,
+        "imd_score": 34.94320201361726,
+        "neighbours": [
+          {
+            "lad_name": "Blackburn with Darwen",
+            "distance": 1.3282505589023705,
+            "imd_score": 36.898780584380994,
+            "actual_crime_rate_per_1000": 364.33645867426503
+          },
+          {
+            "lad_name": "Nottingham",
+            "distance": 1.5753440971865706,
+            "imd_score": 33.74687506413702,
+            "actual_crime_rate_per_1000": 466.66401974198595
+          },
+          {
+            "lad_name": "Great Yarmouth",
+            "distance": 1.8063390892859486,
+            "imd_score": 34.22825232886592,
+            "actual_crime_rate_per_1000": 334.75569445279166
+          },
+          {
+            "lad_name": "Wolverhampton",
+            "distance": 1.8833214517910175,
+            "imd_score": 32.55174248939856,
+            "actual_crime_rate_per_1000": 343.16953353640326
+          },
+          {
+            "lad_name": "Kingston upon Hull, City of",
+            "distance": 1.8857965122877898,
+            "imd_score": 37.206066343602174,
+            "actual_crime_rate_per_1000": 425.34716406689074
+          }
+        ],
+        "neighbour_mean_crime_rate_per_1000": 386.85457409446735
+      },
+      {
+        "lad_name": "Stockport",
+        "actual_crime_rate_per_1000": 2.8853328911367218,
+        "imd_score": 22.713023613299068,
+        "neighbours": [
+          {
+            "lad_name": "Erewash",
+            "distance": 1.1838923500338925,
+            "imd_score": 20.726233442112616,
+            "actual_crime_rate_per_1000": 289.7420250634546
+          },
+          {
+            "lad_name": "North Tyneside",
+            "distance": 1.588161463073108,
+            "imd_score": 20.93206307478908,
+            "actual_crime_rate_per_1000": 309.98707912138025
+          },
+          {
+            "lad_name": "Amber Valley",
+            "distance": 1.6910407090773467,
+            "imd_score": 18.59264683221202,
+            "actual_crime_rate_per_1000": 260.0800415964202
+          },
+          {
+            "lad_name": "Southend-on-Sea",
+            "distance": 1.6976989621618266,
+            "imd_score": 24.027294564472257,
+            "actual_crime_rate_per_1000": 327.8841688596006
+          },
+          {
+            "lad_name": "Wyre",
+            "distance": 1.6989784913014851,
+            "imd_score": 20.863654467300126,
+            "actual_crime_rate_per_1000": 256.72618426090287
+          }
+        ],
+        "neighbour_mean_crime_rate_per_1000": 288.88389978035167
+      },
+      {
+        "lad_name": "Tameside",
+        "actual_crime_rate_per_1000": 1.430382878703532,
+        "imd_score": 31.387651164408982,
+        "neighbours": [
+          {
+            "lad_name": "Torbay",
+            "distance": 1.3360658758279382,
+            "imd_score": 26.91706268605327,
+            "actual_crime_rate_per_1000": 313.00705119468614
+          },
+          {
+            "lad_name": "Wolverhampton",
+            "distance": 1.6577970510743887,
+            "imd_score": 32.55174248939856,
+            "actual_crime_rate_per_1000": 343.16953353640326
+          },
+          {
+            "lad_name": "Preston",
+            "distance": 1.8026654892251104,
+            "imd_score": 28.761836121920865,
+            "actual_crime_rate_per_1000": 440.5902455405646
+          },
+          {
+            "lad_name": "Thanet",
+            "distance": 1.8134846619070166,
+            "imd_score": 32.01751528613976,
+            "actual_crime_rate_per_1000": 365.2111484685428
+          },
+          {
+            "lad_name": "Nottingham",
+            "distance": 1.968069664609608,
+            "imd_score": 33.74687506413702,
+            "actual_crime_rate_per_1000": 466.66401974198595
+          }
+        ],
+        "neighbour_mean_crime_rate_per_1000": 385.72839969643655
+      },
+      {
+        "lad_name": "Trafford",
+        "actual_crime_rate_per_1000": 1.4733015724396221,
+        "imd_score": 16.853223501225454,
+        "neighbours": [
+          {
+            "lad_name": "Broxtowe",
+            "distance": 1.621716973706524,
+            "imd_score": 13.752431629520887,
+            "actual_crime_rate_per_1000": 239.49463944125628
+          },
+          {
+            "lad_name": "Gedling",
+            "distance": 1.857192744506814,
+            "imd_score": 14.485008353019156,
+            "actual_crime_rate_per_1000": 200.49795210822387
+          },
+          {
+            "lad_name": "Sutton",
+            "distance": 1.8600739786422937,
+            "imd_score": 13.85024085442692,
+            "actual_crime_rate_per_1000": 232.4471095091135
+          },
+          {
+            "lad_name": "South Ribble",
+            "distance": 1.9394295087215896,
+            "imd_score": 14.135856846195669,
+            "actual_crime_rate_per_1000": 254.05299418008752
+          },
+          {
+            "lad_name": "Chorley",
+            "distance": 1.9414008764579056,
+            "imd_score": 16.38141816511132,
+            "actual_crime_rate_per_1000": 253.23925377034809
+          }
+        ],
+        "neighbour_mean_crime_rate_per_1000": 235.94638980180585
+      },
+      {
+        "lad_name": "Wigan",
+        "actual_crime_rate_per_1000": 2.1295428511923356,
+        "imd_score": 28.876528845152556,
+        "neighbours": [
+          {
+            "lad_name": "Gateshead",
+            "distance": 0.66432003442765,
+            "imd_score": 28.127952754115263,
+            "actual_crime_rate_per_1000": 338.69908347732945
+          },
+          {
+            "lad_name": "St. Helens",
+            "distance": 0.9261390020601937,
+            "imd_score": 28.95342237235286,
+            "actual_crime_rate_per_1000": 298.65532025464466
+          },
+          {
+            "lad_name": "Preston",
+            "distance": 0.9974116532886066,
+            "imd_score": 28.761836121920865,
+            "actual_crime_rate_per_1000": 440.5902455405646
+          },
+          {
+            "lad_name": "Derby",
+            "distance": 1.0180866961298443,
+            "imd_score": 28.15477176617859,
+            "actual_crime_rate_per_1000": 414.96472194825884
+          },
+          {
+            "lad_name": "Newcastle upon Tyne",
+            "distance": 1.2748670169432958,
+            "imd_score": 28.834460636679918,
+            "actual_crime_rate_per_1000": 435.1636085926332
+          }
+        ],
+        "neighbour_mean_crime_rate_per_1000": 385.61459596268617
+      }
+    ]
+  },
+  "nearest_neighbour_chart": "E:\\Coding\\public-projects\\Uni Projects\\Big Data\\Big Data course\\england-crime-depriviation-analysis\\figures\\gm_nearest_neighbour_crime_rate.png"
+}
