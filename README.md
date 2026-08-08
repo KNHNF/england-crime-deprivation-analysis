@@ -1,6 +1,7 @@
 # England Crime and Deprivation Analysis
 
-UWE Bristol, Big Data module, 25% group video assessment.
+UWE Bristol, Big Data module, 25% group video assessment. Group members each investigated their own question against the same shared dataset; this repository holds my individual contribution: the Spark pipeline, the MongoDB storage and queries, and my own findings (the deprivation-crime relationship and the Greater Manchester data gap).
+
 
 GitHub: [KNHNF/england-crime-depriviation-analysis](https://github.com/KNHNF/england-crime-depriviation-analysis) (renamed from the working repo name `bigdata-crime-deprivation-spark`).
 
@@ -9,6 +10,13 @@ GitHub: [KNHNF/england-crime-depriviation-analysis](https://github.com/KNHNF/eng
 A distributed Big Data pipeline that tests whether area deprivation is associated with crime across England, and whether deprivation features can predict crime levels at small-area (LSOA) level.
 
 This is a national-scale rebuild of an earlier prototype (`bigdata-crime-deprivation`), which used pre-aggregated crime tables of about 25,000 rows and was marked down for not being genuinely big data. That prototype is kept for reference and is not reused here. This version processes the full street-level police.uk archive (June 2023 to May 2026, 17.8 million individual crime records) with Apache Spark, stores processed output in MongoDB, and trains a machine learning model to predict crime hotspots from deprivation features.
+
+## My part in this project
+
+I built the Spark pipeline end to end, loaded the output into MongoDB, and wrote the query behind the group's headline chart. Two findings are mine specifically:
+
+- Deprivation and crime rate move together across all ten IoD deciles, no exceptions, a 4.8x gap between the most and least deprived areas.
+- Greater Manchester's crime data is missing from the archive entirely, not genuinely low. I confirmed this during EDA, then corrected it two independent ways, nearest-neighbour matching against similar areas and a random forest model, both landing near the same 200x gap (`src/estimate_gm_crime_rate.py`, `docs/16_gm_crime_rate_estimate.md`).
 
 ## Why the scale matters
 
