@@ -1,6 +1,7 @@
 # England Crime and Deprivation Analysis
 
 UWE Bristol, Big Data module, 25% group video assessment.
+This repo is my own individual rebuild of the pipeline, built alongside the group's official 25% video assessment submission (UWE Bristol, Big Data module). Other group members were not involved in this repo's code.
 
 GitHub: [KNHNF/england-crime-depriviation-analysis](https://github.com/KNHNF/england-crime-depriviation-analysis) (renamed from the working repo name `bigdata-crime-deprivation-spark`).
 
