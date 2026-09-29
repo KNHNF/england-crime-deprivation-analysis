@@ -3,7 +3,7 @@
 UWE Bristol, Big Data module, 25% group video assessment. Group members each investigated their own question against the same shared dataset; this repository holds my individual contribution: the Spark pipeline, the MongoDB storage and queries, and my own findings (the deprivation-crime relationship and the Greater Manchester data gap).
 
 
-GitHub: [KNHNF/england-crime-depriviation-analysis](https://github.com/KNHNF/england-crime-depriviation-analysis) (renamed from the working repo name `bigdata-crime-deprivation-spark`).
+GitHub: [KNHNF/england-crime-deprivation-analysis](https://github.com/KNHNF/england-crime-deprivation-analysis) (renamed from the working repo name `bigdata-crime-deprivation-spark`).
 
 ## What this is
 
