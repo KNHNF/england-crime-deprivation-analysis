@@ -1,6 +1,6 @@
 # England Crime and Deprivation Analysis
 
-UWE Bristol, Big Data module coursework. All the code and analysis in this repository is my own.
+UWE Bristol, Big Data module coursework, assessed as a group presentation. This repository is my own version of the pipeline: the code here is mine. The planning notes in `PROJECT_PLAN.md` and `docs/` come from the group's shared work, so they name other people and describe a task split that differs from what I did in places.
 
 GitHub: [KNHNF/england-crime-deprivation-analysis](https://github.com/KNHNF/england-crime-deprivation-analysis) (renamed from the working repo name `bigdata-crime-deprivation-spark`).
 
