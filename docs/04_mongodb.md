@@ -1,6 +1,5 @@
 # 04 MongoDB
 
-
 Status as of 2026-07-11: real run complete against Atlas, 32,944 documents loaded into the `Crime_England_Deprivation` collection (renamed from the originally planned `lsoa_crime_deprivation`, set via `MONGO_COLLECTION` in `.env`), plus a `monthly_crime_trend` collection with 36 documents. One real bug caught and fixed during the run: `first_month`/`last_month` are Python `date` objects in the Parquet output, and PyMongo cannot encode those directly, `normalise_document()` now converts them to ISO date strings before insert. Real document still to be pasted below, replacing the placeholder schema.
 
 ## What it does

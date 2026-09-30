@@ -1,6 +1,6 @@
 # England Crime and Deprivation Analysis
 
-UWE Bristol, Big Data module coursework, assessed as a group presentation. This repository is my own version of the pipeline: the code here is mine. The planning notes in `PROJECT_PLAN.md` and `docs/` come from the group's shared work, so they name other people and describe a task split that differs from what I did in places.
+UWE Bristol, Big Data module coursework. The code in this repository is my own.
 
 GitHub: [KNHNF/england-crime-deprivation-analysis](https://github.com/KNHNF/england-crime-deprivation-analysis) (renamed from the working repo name `bigdata-crime-deprivation-spark`).
 
@@ -35,7 +35,7 @@ Raw police.uk street CSVs (17.8M rows, 1,563 files)
    -> presentation
 ```
 
-A Streamlit dashboard was in the original plan but was descoped on 11 July 2026: the brief only requires showing how the data gets queried, which the MongoDB schema and query slide already covers, and a dashboard was real added scope this close to the deadline with no marks specifically tied to it. See `docs/06_dashboard.md` for the full reasoning, kept for reference in case there's time to revisit it.
+I did not build a dashboard. The queries and the MongoDB schema are documented in `docs/04_mongodb.md`, and a dashboard would have added scope without adding to the analysis.
 
 ## How to read this repo
 
@@ -48,11 +48,10 @@ docs/
   03_spark_pipeline.md     what Spark does and why Spark, including real bugs hit and fixed
   04_mongodb.md            document schema, indexes, queries
   05_machine_learning.md   the ML task, model, metrics
-  06_dashboard.md          why the dashboard was descoped
   07_results.md            findings, each with an explanation
   08_limitations.md        what the data and method cannot tell us
-  09_presentation_notes.md video plan, section split, talking points
   10_eda_and_build_log.md  EDA plan, build decisions, and issues hit
+  16_gm_crime_rate_estimate.md  how the missing Greater Manchester rate was estimated, two ways
 ```
 
 ## Repository layout

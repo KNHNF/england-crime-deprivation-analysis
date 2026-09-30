@@ -1,6 +1,5 @@
 # 07 Results
 
-
 ## Rule for this file
 
 Every finding needs at least two sentences: what the pattern is, and why it happens. The marker rewards explanation, not description. A chart with no explanation scores poorly.

@@ -1,6 +1,5 @@
 # 08 Limitations
 
-
 Naming limitations honestly gains marks. Pretending there are none loses them.
 
 ## Data limitations

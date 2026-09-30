@@ -12,6 +12,6 @@ Pipeline code. All modules below are built and runnable, listed in the order the
 - `visualise_from_mongo.py`: the same charts as `visualise.py`, sourced from live MongoDB aggregation queries instead of the local Parquet file. This is the version to reference when demonstrating that the charts come from the database, not just a local file.
 - `train_model.py`: trains the hotspot classifiers (logistic regression, random forest), writes metrics JSON and confusion matrix images. See `docs/05`.
 
-A Streamlit dashboard (`dashboard/app.py`) was planned but descoped on 11 July 2026, see `docs/06_dashboard.md`. It is not part of the current pipeline.
+A Streamlit dashboard (`dashboard/app.py`) was planned but descoped on 11 July 2026. It is not part of the current pipeline.
 
 Each module runs on its own so members can work in parallel. Configuration (MongoDB URI, data paths) goes in `.env`, loaded with python-dotenv, never hardcoded.
