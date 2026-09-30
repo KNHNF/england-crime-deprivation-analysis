@@ -1,7 +1,6 @@
 # England Crime and Deprivation Analysis
 
-UWE Bristol, Big Data module, 25% group video assessment. Group members each investigated their own question against the same shared dataset; this repository holds my individual contribution: the Spark pipeline, the MongoDB storage and queries, and my own findings (the deprivation-crime relationship and the Greater Manchester data gap).
-
+UWE Bristol, Big Data module coursework. All the code and analysis in this repository is my own.
 
 GitHub: [KNHNF/england-crime-deprivation-analysis](https://github.com/KNHNF/england-crime-deprivation-analysis) (renamed from the working repo name `bigdata-crime-deprivation-spark`).
 
@@ -11,9 +10,9 @@ A distributed Big Data pipeline that tests whether area deprivation is associate
 
 This is a national-scale rebuild of an earlier prototype (`bigdata-crime-deprivation`), which used pre-aggregated crime tables of about 25,000 rows and was marked down for not being genuinely big data. That prototype is kept for reference and is not reused here. This version processes the full street-level police.uk archive (June 2023 to May 2026, 17.8 million individual crime records) with Apache Spark, stores processed output in MongoDB, and trains a machine learning model to predict crime hotspots from deprivation features.
 
-## My part in this project
+## What I built
 
-I built the Spark pipeline end to end, loaded the output into MongoDB, and wrote the query behind the group's headline chart. Two findings are mine specifically:
+I built the Spark pipeline end to end, loaded the output into MongoDB, and wrote the query behind the headline chart. Two findings are mine specifically:
 
 - Deprivation and crime rate move together across all ten IoD deciles, no exceptions, a 4.8x gap between the most and least deprived areas.
 - Greater Manchester's crime data is missing from the archive entirely, not genuinely low. I confirmed this during EDA, then corrected it two independent ways, nearest-neighbour matching against similar areas and a random forest model, both landing near the same 200x gap (`src/estimate_gm_crime_rate.py`, `docs/16_gm_crime_rate_estimate.md`).
@@ -65,7 +64,7 @@ docs/
 ├── docs/                 one short file per component (read these)
 ├── src/                  pipeline code (see src/README.md)
 ├── data/                 raw and processed data, gitignored, download manually
-└── figures/              charts and screenshots for the slides, gitignored
+└── figures/              charts and maps
 ```
 
 ## Quickstart
@@ -125,11 +124,6 @@ The random forest is more accurate overall and more precise, but it finds fewer 
 - Java 17: required for PySpark on this project.
 - Apache Spark, through PySpark: reads and aggregates the national police.uk CSV archive.
 - MongoDB Atlas: stores the processed LSOA documents (`Crime_England_Deprivation`, 32,944 documents) and monthly national totals (`monthly_crime_trend`, 36 documents).
-- MongoDB Compass: checking imported documents and indexes, and screenshotting real query output for the slides.
+- MongoDB Compass: checking imported documents and indexes, and screenshotting real query output for the presentation.
 - scikit-learn: hotspot classification (logistic regression and random forest).
-- Matplotlib and Seaborn: charts for the slides.
-- Microsoft Teams: recording the group video.
-
-## Working rule for the whole team
-
-Within about ten minutes of finishing any milestone, the person who did it updates the matching `docs/` file with four things: what was built, why that approach, problems hit, and the outcome. By video time the content already exists and nobody has to reverse-engineer code the night before.
+- Matplotlib and Seaborn: charts for the presentation.
