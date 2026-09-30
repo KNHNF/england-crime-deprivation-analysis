@@ -18,6 +18,10 @@ I built the Spark pipeline end to end, loaded the output into MongoDB, and wrote
 - Deprivation and crime rate move together across all ten IoD deciles, no exceptions, a 4.8x gap between the most and least deprived areas.
 - Greater Manchester's crime data is missing from the archive entirely, not genuinely low. I confirmed this during EDA, then corrected it two independent ways, nearest-neighbour matching against similar areas and a random forest model, both landing near the same 200x gap (`src/estimate_gm_crime_rate.py`, `docs/16_gm_crime_rate_estimate.md`).
 
+![Bar chart of average crimes per 1,000 residents in each deprivation decile, falling from about 540 in the most deprived tenth of areas to about 113 in the least deprived](figures/average_crime_rate_by_iod2025_decile.png)
+
+Average crimes per 1,000 residents by IoD 2025 deprivation decile (1 is most deprived), June 2023 to May 2026. The rate falls at every step, from about 540 to about 113.
+
 ## Why the scale matters
 
 The full street-level archive is the point, not an optional extra. It is what justifies Spark over pandas, and it is the direct answer to the feedback on the prototype. Each crime record carries an LSOA code, so it joins straight to the Index of Multiple Deprivation at LSOA level. No manual police-force-to-district lookup is needed this time.
@@ -101,6 +105,19 @@ The `data/` folder is gitignored, so nothing large is committed.
 ## Real numbers from the full run
 
 17,837,130 raw crime rows read, 16,249,125 after cleaning and filtering to English LSOAs, aggregated to 32,944 LSOA rows (essentially all English LSOAs), 74 unmatched against the IoD table (0.22%). Figures are 3-year cumulative totals, June 2023 to May 2026, not monthly rates. Full detail and the two real bugs found along the way are in `docs/03_spark_pipeline.md`.
+
+![Map of England with each small area coloured by crime rate. Greater Manchester is dark because it has no crime data in the archive](figures/crime_rate_lsoa_map.png)
+
+Crime rate by small area (LSOA). The dark patch is Greater Manchester, which has no crime data in the archive. It is missing, not low, so I estimated it two ways and flagged it (see above).
+
+Hotspot classification: a hotspot is an area in the top quarter of crimes per 1,000 residents (above 335 per 1,000). Fifteen deprivation and population features, 32,870 areas.
+
+| Model | Accuracy | Hotspot precision | Hotspot recall | Hotspot F1 |
+|---|---|---|---|---|
+| Logistic regression | 0.804 | 0.578 | 0.798 | 0.670 |
+| Random forest | 0.820 | 0.700 | 0.487 | 0.575 |
+
+The random forest is more accurate overall and more precise, but it finds fewer hotspots. The logistic regression finds about 80% of them and raises more false alarms.
 
 ## Tools used
 
