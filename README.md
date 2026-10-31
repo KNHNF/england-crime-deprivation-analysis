@@ -15,7 +15,7 @@ This is a national-scale rebuild of an earlier prototype (`bigdata-crime-depriva
 I built the Spark pipeline end to end, loaded the output into MongoDB, and wrote the query behind the headline chart. Two findings are mine specifically:
 
 - Deprivation and crime rate move together across all ten IoD deciles, no exceptions, a 4.8x gap between the most and least deprived areas.
-- Greater Manchester's crime data is missing from the archive entirely, not genuinely low. I confirmed this during EDA, then corrected it two independent ways, nearest-neighbour matching against similar areas and a random forest model, both landing near the same 200x gap (`src/estimate_gm_crime_rate.py`, `docs/16_gm_crime_rate_estimate.md`).
+- Greater Manchester's crime data is missing from the archive entirely, not genuinely low. I confirmed this during EDA, then corrected it two independent ways, nearest-neighbour matching against similar areas and a random forest model, both showing Greater Manchester's recorded rate as hundreds of times too low (about 212x by nearest neighbours, 275x by random forest, per `docs/16_gm_crime_rate_estimate.md` and `figures/gm_crime_rate_estimate.json`; the forest's holdout R2 is only 0.23, so treat it as an order of magnitude, not a measurement) (`src/estimate_gm_crime_rate.py`, `docs/16_gm_crime_rate_estimate.md`).
 
 ![Bar chart of average crimes per 1,000 residents in each deprivation decile, falling from about 540 in the most deprived tenth of areas to about 113 in the least deprived](figures/average_crime_rate_by_iod2025_decile.png)
 
@@ -100,9 +100,30 @@ python src/load_monthly_trend_mongo.py
 
 The `data/` folder is gitignored, so nothing large is committed.
 
+## Offline check on a tiny sample
+
+The tests build a few invented crime rows and a tiny IoD file in a temporary folder, run the real Spark pipeline on them, and exercise the model code on synthetic data. No downloads, MongoDB or network needed, only Java and the packages above.
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest tests
+```
+
+This checks the pipeline logic (outcomes files ignored, Welsh and blank LSOA rows dropped, per-LSOA counts and crime rate, unmatched IoD rows) and the error messages for missing inputs. It does not reproduce the headline numbers, which need the full downloaded data. Last verified with PySpark 4.3.0 on Python 3.13 and Java 21; the pinned 3.5.1 in `requirements.txt` was not installed in that check.
+
+## Limits
+
+- The headline numbers and figures come from the full local run. The raw data is not in the repo, so they cannot be reproduced from a clone alone.
+- LSOAs with no recorded crimes do not appear in the output (the join starts from crime records), so they are missing rather than zero.
+- Greater Manchester has no crime data in the archive. Its rates are estimates, see above.
+- Wales is excluded (the deprivation index covers England only).
+- Association only. Deprivation features explain a limited share of crime rate (R2 0.23 for the regression), and the IoD includes its own crime domain. See `docs/08_limitations.md`.
+- `requirements.txt` lists Streamlit, but the dashboard was descoped.
+- The MongoDB and visualisation scripts need a live MongoDB or the full output and are not covered by the offline tests.
+
 ## Real numbers from the full run
 
-17,837,130 raw crime rows read, 16,249,125 after cleaning and filtering to English LSOAs, aggregated to 32,944 LSOA rows (essentially all English LSOAs), 74 unmatched against the IoD table (0.22%). Figures are 3-year cumulative totals, June 2023 to May 2026, not monthly rates. Full detail and the two real bugs found along the way are in `docs/03_spark_pipeline.md`.
+17,837,130 raw crime rows read, 16,249,125 after cleaning and filtering to English LSOAs, aggregated to 32,944 LSOA rows (essentially all English LSOAs, but see Limits), 74 unmatched against the IoD table (0.22%). Figures are 3-year cumulative totals, June 2023 to May 2026, not monthly rates. Full detail and the two real bugs found along the way are in `docs/03_spark_pipeline.md`.
 
 ![Map of England with each small area coloured by crime rate. Greater Manchester is dark because it has no crime data in the archive](figures/crime_rate_lsoa_map.png)
 

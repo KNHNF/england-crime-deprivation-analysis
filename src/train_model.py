@@ -50,6 +50,11 @@ def add_hotspot_label(data: pd.DataFrame) -> tuple[pd.DataFrame, float]:
     model_data = data.copy()
     model_data["crime_rate_per_1000"] = pd.to_numeric(model_data["crime_rate_per_1000"], errors="coerce")
     model_data = model_data.dropna(subset=["crime_rate_per_1000"])
+    if len(model_data) < 8:
+        raise ValueError(
+            f"Only {len(model_data)} rows have a crime rate; need at least 8 to train and test. "
+            "Check the Spark output was joined to the IoD file (population and rate would be null otherwise)."
+        )
     threshold = float(model_data["crime_rate_per_1000"].quantile(0.75))
     model_data["hotspot"] = model_data["crime_rate_per_1000"] >= threshold
     return model_data, threshold
@@ -59,14 +64,14 @@ def build_models() -> dict[str, Pipeline]:
     return {
         "logistic_regression": Pipeline(
             steps=[
-                ("imputer", SimpleImputer(strategy="median")),
+                ("imputer", SimpleImputer(strategy="median", keep_empty_features=True)),
                 ("scaler", StandardScaler()),
                 ("model", LogisticRegression(max_iter=1000, class_weight="balanced")),
             ]
         ),
         "random_forest": Pipeline(
             steps=[
-                ("imputer", SimpleImputer(strategy="median")),
+                ("imputer", SimpleImputer(strategy="median", keep_empty_features=True)),
                 (
                     "model",
                     RandomForestClassifier(

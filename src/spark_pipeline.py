@@ -43,6 +43,13 @@ def read_police_data(spark, police_dir: Path) -> DataFrame:
     # incompatible schema tracking case outcomes only, no Crime type column).
     # Reading both together corrupts columns via positional CSV alignment, so
     # only street files are loaded here.
+    if not police_dir.is_dir():
+        raise FileNotFoundError(f"Police data directory not found: {police_dir}")
+    if next(police_dir.rglob("*-street.csv"), None) is None:
+        raise FileNotFoundError(
+            f"No *-street.csv files found under {police_dir}. "
+            "Download the police.uk archive with crime data included (see data/README.md)."
+        )
     return (
         spark.read.option("header", True)
         .option("inferSchema", False)
